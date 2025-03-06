@@ -6,7 +6,7 @@ import ScreenBg from '../components/ScreenBg.tsx';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MyHeader from '../components/MyHeader.tsx';
 import CustomInput from '../components/CustomInput.tsx';
-import {categories} from '../data/data.ts';
+import {categories, categories_expense} from '../data/data.ts';
 import SelectableItem from '../components/SelectableItem.tsx';
 import {useStore} from '../stores/StoreContext.tsx';
 import MyButton from '../components/MyButton.tsx';
@@ -29,6 +29,8 @@ const AddRecordScreen: React.FC<MenuScreenProps> = props => {
     createRecord,
   } = useStore().productStore;
 
+  const catagories_data = type === 'income' ? categories : categories_expense;
+
   useEffect(() => {
     props.navigation.setOptions({});
   }, []);
@@ -40,13 +42,13 @@ const AddRecordScreen: React.FC<MenuScreenProps> = props => {
 
   return (
     <ScreenBg>
-      <SafeAreaView edges={['top']} style={styles.mainContainer}>
+      <SafeAreaView edges={['left', 'right']} style={styles.mainContainer}>
         <MyHeader showBack title={type} />
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={{flex: 1}}
-          contentContainerStyle={{paddingBottom: 100}}>
-          <View style={{paddingHorizontal: 16}}>
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}>
+          <View style={styles.contentContainer}>
             <CustomInput
               value={recordTitle}
               onChangeText={setRecordTitle}
@@ -58,18 +60,11 @@ const AddRecordScreen: React.FC<MenuScreenProps> = props => {
               onChangeText={setAmount}
               label={`${type} amount`}
               placeholder={'...'}
-              containerStyle={{marginBottom: 10}}
+              containerStyle={styles.amountInput}
               keyboardType={'number-pad'}
             />
-            <Text
-              style={{
-                color: COLORS.placeholder,
-                fontSize: 15,
-                marginBottom: 10,
-              }}>
-              Category
-            </Text>
-            {categories.map(item => (
+            <Text style={styles.categoryTitle}>Category</Text>
+            {catagories_data.map(item => (
               <SelectableItem
                 key={item.id}
                 label={item.name}
@@ -81,7 +76,7 @@ const AddRecordScreen: React.FC<MenuScreenProps> = props => {
           <MyButton
             title={'Go'}
             onPress={handleCreate}
-            containerStyle={{marginTop: 40}}
+            containerStyle={styles.goButton}
           />
         </ScrollView>
       </SafeAreaView>
@@ -114,6 +109,26 @@ const styles = StyleSheet.create({
   date: {
     color: COLORS.white,
     marginLeft: 4,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 100,
+  },
+  contentContainer: {
+    paddingHorizontal: 16,
+  },
+  amountInput: {
+    marginBottom: 10,
+  },
+  categoryTitle: {
+    color: COLORS.placeholder,
+    fontSize: 15,
+    marginBottom: 10,
+  },
+  goButton: {
+    marginTop: 40,
   },
 });
 

@@ -38,11 +38,9 @@ const ProductListScreen: React.FC<HomeScreenProps> = props => {
       <SafeAreaView edges={[]} style={styles.mainContainer}>
         <Pressable
           onPress={() => props.navigation.navigate('HistoryTab')}
-          style={{alignSelf: 'flex-end', marginRight: 30, marginBottom: 20}}>
+          style={styles.historyButton}>
           <LinearView>
-            <Text style={{fontSize: 18, fontWeight: 600, color: COLORS.white}}>
-              History
-            </Text>
+            <Text style={styles.historyText}>History</Text>
           </LinearView>
         </Pressable>
         <View style={styles.headerImgContainer}>
@@ -50,155 +48,56 @@ const ProductListScreen: React.FC<HomeScreenProps> = props => {
             source={require('../assets/card.png')}
             resizeMode={'contain'}
             style={styles.image}>
-            <View
-              style={{
-                position: 'absolute',
-                top: 20,
-                left: 20,
-              }}>
-              <Text
-                style={{
-                  color: COLORS.grayText,
-                  fontWeight: 500,
-                }}>
-                Balance
-              </Text>
-              <Text
-                style={{
-                  color: COLORS.white,
-                  fontWeight: 500,
-                  fontSize: 20,
-                }}>
+            <View style={styles.balanceContainer}>
+              <Text style={styles.balanceLabel}>Balance</Text>
+              <Text style={styles.balanceValue}>
                 {balance}
-                <Text
-                  style={{
-                    color: '#C15BFF',
-                    fontSize: 10,
-                    fontWeight: 700,
-                  }}>
-                  {'  '}
-                  USD
-                </Text>
+                <Text style={styles.usdText}> USD</Text>
               </Text>
             </View>
 
-            <Text
-              style={{
-                position: 'absolute',
-                bottom: 20,
-                left: 20,
-                color: COLORS.white,
-                fontSize: 24,
-                fontWeight: 600,
-              }}>
-              Hello {name}!
-            </Text>
-            <View
-              style={{
-                position: 'absolute',
-                top: 20,
-                right: 20,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <View style={{alignItems: 'center', marginRight: 10}}>
-                <Text
-                  style={{
-                    color: COLORS.white,
-                    fontWeight: 600,
-                    marginBottom: 8,
-                  }}>
-                  Income
-                </Text>
-                <View
-                  style={{
-                    backgroundColor: COLORS.green,
-                    borderRadius: 24,
-                    paddingHorizontal: 12,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Text style={{color: COLORS.white, fontWeight: 600}}>
-                    ${incomeBalance}
-                  </Text>
+            <Text style={styles.greetingText}>Hello {name}!</Text>
+
+            <View style={styles.statsContainer}>
+              <View style={styles.statItem}>
+                <Text style={styles.statLabel}>Income</Text>
+                <View style={[styles.statValue, styles.incomeBg]}>
+                  <Text style={styles.statValueText}>${incomeBalance}</Text>
                 </View>
               </View>
-              <View style={{alignItems: 'center'}}>
-                <Text
-                  style={{
-                    color: COLORS.white,
-                    fontWeight: 600,
-                    marginBottom: 8,
-                  }}>
-                  Expense
-                </Text>
-                <View
-                  style={{
-                    backgroundColor: COLORS.red,
-                    borderRadius: 24,
-                    paddingHorizontal: 12,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Text style={{color: COLORS.white, fontWeight: 600}}>
-                    ${expenseBalance}
-                  </Text>
+              <View style={styles.statItem}>
+                <Text style={styles.statLabel}>Expense</Text>
+                <View style={[styles.statValue, styles.expenseBg]}>
+                  <Text style={styles.statValueText}>${expenseBalance}</Text>
                 </View>
               </View>
             </View>
           </ImageBackground>
         </View>
-        <View
-          style={{
-            width: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-evenly',
-            marginTop: 20,
-          }}>
+        <View style={styles.recordButtonsContainer}>
           <Pressable onPress={() => onCreateRecord('income')}>
-            <LinearView containerStyle={{paddingHorizontal: 40}}>
-              <Text style={{fontWeight: 600, color: COLORS.white}}>Income</Text>
+            <LinearView>
+              <Text style={styles.recordButtonText}>Income</Text>
             </LinearView>
           </Pressable>
           <Pressable onPress={() => onCreateRecord('expense')}>
-            <LinearView containerStyle={{paddingHorizontal: 40}}>
-              <Text style={{fontWeight: 600, color: COLORS.white}}>
-                Expense
-              </Text>
+            <LinearView>
+              <Text style={styles.recordButtonText}>Expense</Text>
             </LinearView>
           </Pressable>
         </View>
-        <View style={{marginTop: width * 0.12}}>
-          <Text
-            style={{
-              color: COLORS.white,
-              fontSize: 24,
-              fontWeight: 600,
-              textAlign: 'center',
-              marginBottom: 16,
-            }}>
-            News
-          </Text>
+        <View style={styles.newsContainer}>
+          <Text style={styles.newsTitle}>News</Text>
           <Pressable onPress={() => navToDetail(0)}>
             <Image
               source={require('../assets/event1.png')}
-              style={{
-                width: '100%',
-                height: width * 0.33,
-                resizeMode: 'contain',
-                marginBottom: 16,
-              }}
+              style={styles.newsImage}
             />
           </Pressable>
           <Pressable onPress={() => navToDetail(1)}>
             <Image
               source={require('../assets/event2.png')}
-              style={{
-                width: '100%',
-                height: width * 0.33,
-                resizeMode: 'contain',
-              }}
+              style={styles.newsImage}
             />
           </Pressable>
         </View>
@@ -323,6 +222,106 @@ const styles = StyleSheet.create({
   },
   emptyContainer: {
     alignItems: 'center',
+  },
+  historyButton: {
+    alignSelf: 'flex-end',
+    marginRight: 30,
+    marginBottom: 20,
+  },
+  historyText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: COLORS.white,
+    paddingVertical: 4,
+    paddingHorizontal: 16,
+  },
+  balanceContainer: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+  },
+  balanceLabel: {
+    color: COLORS.grayText,
+    fontWeight: '500',
+  },
+  balanceValue: {
+    color: COLORS.white,
+    fontWeight: '500',
+    fontSize: 20,
+  },
+  usdText: {
+    color: '#C15BFF',
+    fontSize: 10,
+    fontWeight: '700',
+  },
+  greetingText: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    color: COLORS.white,
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  statsContainer: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  statItem: {
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  statLabel: {
+    color: COLORS.white,
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+  statValue: {
+    borderRadius: 24,
+    paddingHorizontal: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  incomeBg: {
+    backgroundColor: COLORS.green,
+  },
+  expenseBg: {
+    backgroundColor: COLORS.red,
+  },
+  statValueText: {
+    color: COLORS.white,
+    fontWeight: '600',
+  },
+  recordButtonsContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    marginTop: 20,
+  },
+  recordButtonText: {
+    fontWeight: '600',
+    color: COLORS.white,
+    paddingHorizontal: 40,
+    paddingVertical: 4,
+  },
+  newsContainer: {
+    marginTop: width * 0.12,
+  },
+  newsTitle: {
+    color: COLORS.white,
+    fontSize: 24,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  newsImage: {
+    width: '100%',
+    height: width * 0.33,
+    resizeMode: 'contain',
+    marginBottom: 16,
   },
 });
 

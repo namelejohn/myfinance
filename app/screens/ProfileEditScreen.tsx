@@ -26,7 +26,7 @@ const ProfileEditScreen = ({navigation}: any) => {
   const isDisabled = !name?.length || !avatarUrl?.length;
 
   const handleSubmit = () => {
-    navigation.navigate('Home');
+    navigation.navigate('MainTab');
   };
 
   async function handlePickImage() {
@@ -36,7 +36,7 @@ const ProfileEditScreen = ({navigation}: any) => {
   }
 
   function handleSave() {
-    navigation.navigate('Home');
+    navigation.navigate('MainTab');
     setShowEditProfile(false);
   }
 

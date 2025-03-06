@@ -22,18 +22,10 @@ const EventDetailsScreen: React.FC<MenuScreenProps> = props => {
         <MyHeader showBack title={'Tips'} />
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={{flex: 1}}
-          contentContainerStyle={{paddingBottom: 100}}>
-          <View style={{alignItems: 'center', paddingHorizontal: 16}}>
-            <Image
-              source={eventData[id].image}
-              style={{
-                width: '95%',
-                height: 210,
-                resizeMode: 'contain',
-                borderRadius: 16,
-              }}
-            />
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}>
+          <View style={styles.contentContainer}>
+            <Image source={eventData[id].image} style={styles.eventImage} />
             <View style={styles.titleBg}>
               <Text style={styles.title}>{eventData[id].title}</Text>
             </View>
@@ -74,6 +66,22 @@ const styles = StyleSheet.create({
   date: {
     color: COLORS.white,
     marginLeft: 4,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 100,
+  },
+  contentContainer: {
+    alignItems: 'center',
+    paddingHorizontal: 16,
+  },
+  eventImage: {
+    width: '95%',
+    height: 210,
+    resizeMode: 'contain',
+    borderRadius: 16,
   },
 });
 

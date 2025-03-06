@@ -44,3 +44,30 @@ export const categories: Filter[] = [
     name: 'Other',
   },
 ];
+
+export const categories_expense: Filter[] = [
+  {
+    id: 1,
+    name: 'Car',
+  },
+  {
+    id: 2,
+    name: 'Rent',
+  },
+  {
+    id: 3,
+    name: 'Food',
+  },
+  {
+    id: 4,
+    name: 'Investment',
+  },
+  {
+    id: 5,
+    name: 'Vacation',
+  },
+  {
+    id: 6,
+    name: 'Other',
+  },
+];

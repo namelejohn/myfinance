@@ -21,9 +21,7 @@ const LinearView: React.FC<LinearViewProps> = ({containerStyle, children}) => {
 
 const styles = StyleSheet.create({
   gradient: {
-    borderRadius: 18,
-    paddingHorizontal: 25,
-    paddingVertical: 4,
+    borderRadius: 20,
   },
 });
 

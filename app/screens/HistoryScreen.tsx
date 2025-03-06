@@ -27,16 +27,9 @@ const HistoryScreen: React.FC<HistoryScreenProps> = props => {
   const renderRightActions = (index: number) => {
     return (
       <RectButton
-        style={{
-          backgroundColor: '#A20E0E',
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderRadius: 12,
-          marginBottom: 16,
-          width: 80,
-        }}
+        style={styles.deleteButton}
         onPress={() => handleDelete(index)}>
-        <Text style={{color: COLORS.white, fontSize: 10}}>Remove</Text>
+        <Text style={styles.deleteButtonText}>Remove</Text>
       </RectButton>
     );
   };
@@ -47,29 +40,19 @@ const HistoryScreen: React.FC<HistoryScreenProps> = props => {
         ref={ref => ref && swipeableRefs.set(index, ref)}
         renderRightActions={() => renderRightActions(index)}>
         <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            backgroundColor: item.type === 'income' ? '#03AB69' : '#A20E0E',
-            borderRadius: 12,
-            padding: 14,
-            marginHorizontal: 12,
-            marginBottom: 16,
-          }}>
-          <Text style={{color: COLORS.white, fontSize: 16, fontWeight: 500}}>
-            {item.title}
-          </Text>
-          <Text style={{color: COLORS.white, fontSize: 16, fontWeight: 600}}>
-            ${item.amount}
-          </Text>
+          style={[
+            styles.historyItem,
+            {backgroundColor: item.type === 'income' ? '#03AB69' : '#A20E0E'},
+          ]}>
+          <Text style={styles.itemTitle}>{item.title}</Text>
+          <Text style={styles.itemAmount}>${item.amount}</Text>
         </View>
       </Swipeable>
     );
   };
   return (
     <ScreenBg>
-      <SafeAreaView edges={['top']} style={styles.mainContainer}>
+      <SafeAreaView edges={['left', 'right']} style={styles.mainContainer}>
         <MyHeader title={'History'} />
         <FlatList
           data={history}
@@ -107,6 +90,37 @@ const styles = StyleSheet.create({
   date: {
     color: COLORS.white,
     marginLeft: 4,
+  },
+  deleteButton: {
+    backgroundColor: '#A20E0E',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
+    marginBottom: 16,
+    width: 80,
+  },
+  deleteButtonText: {
+    color: COLORS.white,
+    fontSize: 10,
+  },
+  historyItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 12,
+    padding: 14,
+    marginHorizontal: 12,
+    marginBottom: 16,
+  },
+  itemTitle: {
+    color: COLORS.white,
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  itemAmount: {
+    color: COLORS.white,
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 
